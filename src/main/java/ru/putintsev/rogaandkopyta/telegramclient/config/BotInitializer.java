@@ -1,7 +1,6 @@
 package ru.putintsev.rogaandkopyta.telegramclient.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -27,5 +26,4 @@ public class BotInitializer {
             throw new RuntimeException(e);
         }
     }
-
 }

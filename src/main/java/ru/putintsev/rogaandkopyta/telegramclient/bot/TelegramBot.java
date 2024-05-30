@@ -10,8 +10,9 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.putintsev.rogaandkopyta.telegramclient.config.BotConfiguration;
+import ru.putintsev.rogaandkopyta.telegramclient.service.BotCommandService;
 
-import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -19,6 +20,7 @@ import java.util.Collections;
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final BotConfiguration botConfiguration;
+    private final BotCommandService botCommandService;
 
     @Override
     public String getBotUsername() {
@@ -37,9 +39,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void initBotCommands() {
         try {
             //TODO
-//            List<BotCommand> botCommands = botCommandService.getBotCommands();
-            BotCommand command = new BotCommand("/333", "444");
-            execute(new SetMyCommands(Collections.singletonList(command), new BotCommandScopeDefault(), null));
+            List<BotCommand> menuCommands = botCommandService.getMenuCommands();
+            execute(new SetMyCommands(menuCommands, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException e) {
             log.error("Error at create and setting bot`s command: " + e.getMessage());
             throw new RuntimeException(e);
